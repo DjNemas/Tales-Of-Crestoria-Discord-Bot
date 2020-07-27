@@ -23,6 +23,8 @@ namespace TaleOfCrestoria
         {
             client = new DiscordSocketClient();
             commands = new CommandService();
+
+            // Create a token.txt file and put your Bot Token in it and change the path!!!
             System.IO.StreamReader file = new System.IO.StreamReader(@"G:\Tales of Crestoria Discord Bot\token.txt");
 
             services = new ServiceCollection().AddSingleton(client).AddSingleton(commands).BuildServiceProvider();

@@ -1,10 +1,15 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Discord.Commands;
+using Discord.Rest;
 
 namespace TaleOfCrestoria.Modules
 {
@@ -12,10 +17,18 @@ namespace TaleOfCrestoria.Modules
     {
         //Member
         public char Prefix { get; private set; }
+        private const string InitConfigPath = @"../../initconfig.xml";
+
+        // Load ConfigFile
+        private XDocument config = XDocument.Load(InitConfigPath);
+        
 
         public Commands()
         {
-            this.Prefix = '&';
+            // Get prefix from config file
+            var prefix = from pre in config.Descendants("Config")
+                         select pre.Element("Prefix").Value;
+            this.Prefix = Convert.ToChar(prefix.ElementAt(0));
         }
 
         [Command("help")]
@@ -40,10 +53,13 @@ namespace TaleOfCrestoria.Modules
         [Command("prefix")]
         public async Task SetPrefix(char prefix)
         {
-            this.Prefix = prefix;
+            await ReplyAsync($"```Prefix was changed to {prefix}. Bot is restarting now. This may take a while!```");
+            config.Elements().Elements().ElementAt(0).Value = prefix.ToString();
+            config.Save(InitConfigPath);            
+            string myApp = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
+            System.Diagnostics.Process.Start(myApp);
+            Environment.Exit(0);
 
-            await ReplyAsync($"Prefix was changed to {prefix}");
-            new InitBot().RunBotAsync().GetAwaiter().GetResult();
         }
 
         //sample square 20 -> 400
