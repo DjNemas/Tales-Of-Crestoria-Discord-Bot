@@ -85,8 +85,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\DatabaseAccess.cs" />
     <Compile Include="InitBot.cs" />
     <Compile Include="Modules\Commands.cs" />
+    <Compile Include="Modules\CommandsAdmin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
