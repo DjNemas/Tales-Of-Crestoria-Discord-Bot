@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaleOfCrestoria.Database;
-using TaleOfCrestoria.Database.Read;
 using Discord.Commands;
+using System.Data.Linq;
 
 namespace TaleOfCrestoria.Modules
 {
     public class Commands_Unit_Unit : ModuleBase<SocketCommandContext>
     {
         //member
-        private Unit_Unit_Read unit = new Unit_Unit_Read();
         private Tools tools = new Tools();
         private InitBot prf = new InitBot();
+        private static DatabaseAccess db = new DatabaseAccess();
+        private static DataContext context = db.connect();
 
         [Command("unit")]
         public async Task Unit()
@@ -30,23 +31,23 @@ namespace TaleOfCrestoria.Modules
             string queryString = "";
             if (name == "All")
             {
-                queryString = $"select * from unit_unit";
+                await ReplyAsync("Not implemented yet");
+                //queryString = $"select * from unit_unit";
             }
             else 
             {
                 queryString = $"select * from unit_unit where name = \"{name}\"";
-            }            
-            //List <Unit_Unit> id = unit.GetIDByName(name);
-            List<Unit_Unit> id = unit.GetDataBySQLString(queryString);
+            }
+            List<Unit_Unit> id = (context.ExecuteQuery<Unit_Unit>(queryString).ToList());
             string tmp = "";
             foreach (var unit in id)
             {
-                tmp += $"ID: {unit.id} | Unit: {unit.name} [{unit.secondname}] | Grade: {unit.grade}\n";
+                tmp += $"ID: {unit.id} | Unit: {unit.name} [{unit.secondname}] | Grade: {unit.grade}\n";                
             }
             await ReplyAsync(
                 $"> **Use \"{prf.Prefix}unit <id> unit/stone\"** for selecting the right unit.\n" +
                 $"> You can chose between **Unit Stats** ot **Stone Stats**\n" +
-                $"```Available Units widestruct commandth the name {name}\n" +
+                $"```Available Units with the name {name}\n" +
                 "-----------------------------------\n" +
                 $"{tmp}```");
         }
@@ -57,8 +58,8 @@ namespace TaleOfCrestoria.Modules
             type = tools.StringToLower(type);
             if (type == "unit")
             {
-                string querystring = $"select * from unit_unit where id = \"{id}\"";
-                List<Unit_Unit> unitdb = unit.GetDataBySQLString(querystring);
+                string queryString = $"select * from unit_unit where id = \"{id}\"";
+                List<Unit_Unit> unitdb = (context.ExecuteQuery<Unit_Unit>(queryString).ToList());
                 string tmp = "";
                 foreach (var unit in unitdb)
                 {

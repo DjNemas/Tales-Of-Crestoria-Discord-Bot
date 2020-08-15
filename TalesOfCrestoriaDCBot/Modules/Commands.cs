@@ -43,9 +43,10 @@ namespace TaleOfCrestoria.Modules
                     $"> {init.Prefix}unit <unit id> unit | Shows the **unit** stats of your selected unit by **ID**\n" +
                     $"> {init.Prefix}unit <unit id> stone | Shows the **unitstone** stats of your selected unit by **ID**\n\n" +
                 $"__ADMIN COMMANDS__\n" +
-                    $"> This commands only can be used by **Admins**\n" +
+                    "This commands only can be used by **Admins**\n" +
                     $"> {init.Prefix}shutdown | Shutdown the Bot\n" +
-                    $"> {init.Prefix}prefix <new prefix> | Change the **prefix** for Commands and **restart the bot**. Only one character like % or & allowed!") ;
+                    $"> {init.Prefix}prefix <new prefix> | Change the **prefix** for Commands and **restart the bot**. Only one character like % or & allowed!\n" +
+                    $"> {init.Prefix}update unit | Update the Database with the API www.tocdb.xyz/api.php | Right now only add new Units!" );
         }
 
         //sample square 20 -> 400
