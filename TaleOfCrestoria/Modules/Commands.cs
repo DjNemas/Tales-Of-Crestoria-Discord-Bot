@@ -19,20 +19,33 @@ namespace TaleOfCrestoria.Modules
         [Command("help")]
         public async Task Help()
         {
-            await ReplyAsync($"``` use {init.Prefix}commands for Commandlist ```");
+            await ReplyAsync(
+                $"> use {init.Prefix}commands for Commandlist\n\n\n" +
+                "__Quick Command Guide__\n" +
+                $"Every command starts with this Prefix {init.Prefix} followed by command\n" + 
+                $"> Example: {init.Prefix}help\n" +
+                "Some commands can get special parameters\n" + 
+                $"> For Example {init.Prefix}unit <parameter1> <parameter2>\n" +
+                "When a command has a <parameter>, you only write the parameter without the <> \n" +
+                $"> Example for {init.Prefix}unit <unit id> unit you write {init.Prefix}unit 1 unit\n\n" +
+                "I hope this QuickGuide helps u :blush: \n");
             
         }
 
         [Command("commands")]
         public async Task CommandsList()
         {
-            await ReplyAsync($"```{init.Prefix}help\n\n" +
-                $"Unit Commands\n" +
-                    $"{init.Prefix}velvet\n" +
-                    $"{init.Prefix}yuri\n\n" +
-                $"ADMIN COMMANDS\n" +
-                    $"{init.Prefix}shutdown\n" +
-                    $"{init.Prefix}prefix <new prefix>```");
+            await ReplyAsync($"__MAIN COMMANDS__\n" +
+                $"> {init.Prefix}help | See a quick Help\n\n" +
+                $"__UNIT COMMANDS__\n" +
+                    $"> {init.Prefix}unit | Main Command for Units Database\n" +
+                    $"> {init.Prefix}unit <Unitname> | Shows a list of available units with the **unitname** u chosen and shows the **IDs**\n" +
+                    $"> {init.Prefix}unit <unit id> unit | Shows the **unit** stats of your selected unit by **ID**\n" +
+                    $"> {init.Prefix}unit <unit id> stone | Shows the **unitstone** stats of your selected unit by **ID**\n\n" +
+                $"__ADMIN COMMANDS__\n" +
+                    $"> This commands only can be used by **Admins**\n" +
+                    $"> {init.Prefix}shutdown | Shutdown the Bot\n" +
+                    $"> {init.Prefix}prefix <new prefix> | Change the **prefix** for Commands and **restart the bot**. Only one character like % or & allowed!") ;
         }
 
         //sample square 20 -> 400

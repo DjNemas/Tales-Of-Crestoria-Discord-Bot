@@ -12,36 +12,98 @@ namespace TaleOfCrestoria.Modules
     public class Commands_Unit_Unit : ModuleBase<SocketCommandContext>
     {
         //member
-        Unit_Unit_Read unit = new Unit_Unit_Read();
+        private Unit_Unit_Read unit = new Unit_Unit_Read();
+        private Tools tools = new Tools();
+        private InitBot prf = new InitBot();
+
+        [Command("unit")]
+        public async Task Unit()
+        {
+            await ReplyAsync($"Write \"{prf.Prefix}unit <name>\" to get a list of available units with the name.");
+        }
 
         //commands
         [Command("unit")]
-        public async Task Unit(string name)
+        public async Task UnitName(string name)
         {
-            List<Unit_Unit> id = unit.GetID(name);
+            name = tools.StringUppercaseFirst(name);
+            List <Unit_Unit> id = unit.GetID(name);
             string tmp = "";
             foreach (var unit in id)
             {
-                tmp += $"ID: {unit.id} | Unit: {unit.name} [{unit.secondname}] | Grade: {unit.grade}\n";
+                tmp += $"**ID: {unit.id}** | Unit: {unit.name} [{unit.secondname}] | Grade: {unit.grade}\n";
             }
             await ReplyAsync(
-                $"```Use \"$unit <id> unit/stone\" for selecting the right unit.\n" +
-                $"You can chose between Unit Stats ot Stone Stats\n\n" + 
-                $"Available Units with the name {name}\n" +
+                $"> **Use \"{prf.Prefix}unit <id> unit/stone\"** for selecting the right unit.\n" +
+                $"> You can chose between **Unit Stats** ot **Stone Stats**\n" +
+                $"```Available Units widestruct commandth the name {name}\n" +
                 "-----------------------------------\n" +
                 $"{tmp}```");
         }
 
         [Command("unit")]
-        public async Task UnitIdUnit(int id, string type)
+        public async Task UnitIdType(int id, string type)
         {
+            type = tools.StringToLower(type);
             if (type == "unit")
             {
-
+                List<Unit_Unit> unitdb = unit.GetUnit(id);
+                string tmp = "";
+                foreach (var unit in unitdb)
+                {
+                    tmp +=
+                        $"Unit {unit.name} [{unit.secondname} | Grade {unit.grade} | Element: {unit.element} | {unit.weapontype}]\n" +
+                        "---------------------------------------------------------------------------------------------\n" +
+                        "Base Stats\n" +
+                        $"Max LVL: {unit.maxlvl}\n" +
+                        $"Max HP: {unit.maxhp}\n" +
+                        $"Max ATK: {unit.maxatk}\n" +
+                        $"Max DEF: {unit.maxdef}\n" +
+                        "---------------------------------------------------------------------------------------------\n" +
+                        "Max Awake\n" +
+                        $"Name {unit.max_awake_name}\n" +
+                        $"Skill {unit.max_awake_passive}\n" +
+                        "---------------------------------------------------------------------------------------------\n" +
+                        "Mystic Artes\n" +
+                        $"Name: {unit.ma_name}\n" +
+                        $"Max LVL: {unit.ma_max_lvl}\n" +
+                        $"Max ATK: {unit.ma_max_atk}\n" +
+                        $"Max HITS: {unit.ma_max_hits}\n" +
+                        $"Enemys: {unit.ma_enemy}\n" +
+                        $"Skill: {unit.ma_add_skill}\n" +
+                        "---------------------------------------------------------------------------------------------\n" +
+                        "Skill 1\n" +
+                        $"Name: {unit.skill1_name}\n" +
+                        $"Max LVL: {unit.skill1_max_lvl}\n" +
+                        $"Max ATK: {unit.skill1_max_atk}\n" +
+                        $"Max HITS: {unit.skill1_max_hits}\n" +
+                        $"Enemys: {unit.skill1_enemy}\n" +
+                        $"Skill: {unit.skill1_add_skill}\n" +
+                        "---------------------------------------------------------------------------------------------\n" +
+                        "Skill 1\n" +
+                        $"Name: {unit.skill2_name}\n" +
+                        $"Max LVL: {unit.skill2_max_lvl}\n" +
+                        $"Max ATK: {unit.skill2_max_atk}\n" +
+                        $"Max HITS: {unit.skill2_max_hits}\n" +
+                        $"Enemys: {unit.skill2_enemy}\n" +
+                        $"Skill: {unit.skill2_add_skill}\n" +
+                        "---------------------------------------------------------------------------------------------\n" +
+                        "Normal Attack\n" +
+                        $"Name: {unit.normal_name}\n" +
+                        $"Max ATK: {unit.normal_atk}\n" +
+                        $"Max HITS: {unit.normal_hits}\n" +
+                        $"Enemys: {unit.normal_enemy}\n" +
+                        $"Skill: {unit.skill2_add_skill}\n";
+                }
+                await ReplyAsync($"```\n{tmp}```");
             }
             else if (type == "stone")
             {
-                await ReplyAsync("Not implementet yet");
+                await ReplyAsync("Not implementet yet Stone");
+            }
+            else
+            {
+                await ReplyAsync("Use **Unit** or **Stone** as Parameter");
             }
         }
     }

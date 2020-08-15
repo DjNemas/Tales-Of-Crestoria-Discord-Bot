@@ -8,14 +8,32 @@ namespace TaleOfCrestoria
 {
     class Tools
     {
-        public string UppercaseFirst(string s)
+        public string StringUppercaseFirst(string s)
         {
             if (string.IsNullOrEmpty(s))
             {
                 return string.Empty;
             }
             char[] a = s.ToCharArray();
-            a[0] = char.ToUpper(a[0]);
+            for (int i = 0; i < a.Length; i++)
+            {
+                a[i] = char.ToLower(a[i]);
+            }
+            a[0] = char.ToUpper(a[0]);            
+            return new string(a);
+        }
+
+        public string StringToLower(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+            char[] a = s.ToCharArray();
+            for (int i = 0; i < a.Length; i++)
+            {
+                a[i] = char.ToLower(a[i]);
+            }
             return new string(a);
         }
     }

@@ -81,8 +81,8 @@ namespace TaleOfCrestoria.Database
         [Column(Name = "skill1_enemy")]
         public string skill1_enemy { get; set; }
 
-        [Column(Name = "skill1_max_level")]
-        public int skill1_max_level { get; set; }
+        [Column(Name = "skill1_max_lvl")]
+        public int skill1_max_lvl { get; set; }
 
         [Column(Name = "skill1_add_skill")]
         public string skill1_add_skill { get; set; }
@@ -99,26 +99,26 @@ namespace TaleOfCrestoria.Database
         [Column(Name = "skill2_enemy")]
         public string skill2_enemy { get; set; }
 
-        [Column(Name = "skill2_max_level")]
-        public int skill2_max_level { get; set; }
+        [Column(Name = "skill2_max_lvl")]
+        public int skill2_max_lvl { get; set; }
 
         [Column(Name = "skill2_add_skill")]
         public string skill2_add_skill { get; set; }
 
-        [Column(Name = "normale_name")]
-        public string normale_name { get; set; }
+        [Column(Name = "normal_name")]
+        public string normal_name { get; set; }
 
-        [Column(Name = "normale_atk")]
-        public int normale_atk { get; set; }
+        [Column(Name = "normal_atk")]
+        public int normal_atk { get; set; }
 
-        [Column(Name = "normale_hits")]
-        public int normale_hits { get; set; }
+        [Column(Name = "normal_hits")]
+        public int normal_hits { get; set; }
 
-        [Column(Name = "normale_enemy")]
-        public string normale_enemy { get; set; }
+        [Column(Name = "normal_enemy")]
+        public string normal_enemy { get; set; }
 
-        [Column(Name = "normale_add_skill")]
-        public string normale_add_skill { get; set; }
+        [Column(Name = "normal_add_skill")]
+        public string normal_add_skill { get; set; }
 
         //[Column(Name = "image")]
         //public byte image { get; set; }
