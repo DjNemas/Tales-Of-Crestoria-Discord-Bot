@@ -16,11 +16,6 @@ namespace TaleOfCrestoria.Modules
         //Member
         InitBot init = new InitBot();
 
-        public Commands()
-        {
-            //
-        }
-
         [Command("help")]
         public async Task Help()
         {
@@ -38,18 +33,6 @@ namespace TaleOfCrestoria.Modules
                 $"ADMIN COMMANDS\n" +
                     $"{init.Prefix}shutdown\n" +
                     $"{init.Prefix}prefix <new prefix>```");
-        }
-
-        [Command("velvet")]
-        public async Task Velvet()
-        {
-            await ReplyAsync("Informations about Velvet will be added soon!");
-        }
-
-        [Command("yuri")]
-        public async Task Yuri()
-        {
-            await ReplyAsync("Informations about Yuri will be added soon!");
         }
 
         //sample square 20 -> 400

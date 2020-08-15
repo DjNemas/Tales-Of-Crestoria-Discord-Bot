@@ -9,7 +9,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using TaleOfCrestoria.Modules;
 
 namespace TaleOfCrestoria
 {
@@ -50,7 +49,7 @@ namespace TaleOfCrestoria
             commands = new CommandService();
 
             // Create a token.txt file and put your Bot Token in it and change the path!!!
-            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Tales of Crestoria Discord Bot\token.txt");
+            System.IO.StreamReader file = new System.IO.StreamReader(@"G:\Tales of Crestoria Discord Bot\token.txt");
 
             services = new ServiceCollection().AddSingleton(client).AddSingleton(commands).BuildServiceProvider();
 

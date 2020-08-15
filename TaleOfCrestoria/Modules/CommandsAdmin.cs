@@ -12,7 +12,6 @@ namespace TaleOfCrestoria.Modules
     /// <summary>
     /// Only For Admins here ;D
     /// </summary>
-    //[RequireUserPermission(GuildPermission.BanMembers)]
     [RequireUserPermission(GuildPermission.BanMembers, Group = "Admin")]
     [RequireOwner(Group = "Admin")]
     public class CommandsAdmin : ModuleBase<SocketCommandContext>
