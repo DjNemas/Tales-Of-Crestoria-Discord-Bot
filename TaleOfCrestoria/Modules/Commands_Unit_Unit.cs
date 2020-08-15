@@ -27,11 +27,21 @@ namespace TaleOfCrestoria.Modules
         public async Task UnitName(string name)
         {
             name = tools.StringUppercaseFirst(name);
-            List <Unit_Unit> id = unit.GetID(name);
+            string queryString = "";
+            if (name == "All")
+            {
+                queryString = $"select * from unit_unit";
+            }
+            else 
+            {
+                queryString = $"select * from unit_unit where name = \"{name}\"";
+            }            
+            //List <Unit_Unit> id = unit.GetIDByName(name);
+            List<Unit_Unit> id = unit.GetDataBySQLString(queryString);
             string tmp = "";
             foreach (var unit in id)
             {
-                tmp += $"**ID: {unit.id}** | Unit: {unit.name} [{unit.secondname}] | Grade: {unit.grade}\n";
+                tmp += $"ID: {unit.id} | Unit: {unit.name} [{unit.secondname}] | Grade: {unit.grade}\n";
             }
             await ReplyAsync(
                 $"> **Use \"{prf.Prefix}unit <id> unit/stone\"** for selecting the right unit.\n" +
@@ -47,48 +57,46 @@ namespace TaleOfCrestoria.Modules
             type = tools.StringToLower(type);
             if (type == "unit")
             {
-                List<Unit_Unit> unitdb = unit.GetUnit(id);
+                string querystring = $"select * from unit_unit where id = \"{id}\"";
+                List<Unit_Unit> unitdb = unit.GetDataBySQLString(querystring);
                 string tmp = "";
                 foreach (var unit in unitdb)
                 {
                     tmp +=
-                        $"Unit {unit.name} [{unit.secondname} | Grade {unit.grade} | Element: {unit.element} | {unit.weapontype}]\n" +
-                        "---------------------------------------------------------------------------------------------\n" +
+                        $"Unit {unit.name} [{unit.secondname} | Grade {unit.grade} | Element: {unit.element} | {unit.weapontype}]\n\n" +
                         "Base Stats\n" +
                         $"Max LVL: {unit.maxlvl}\n" +
                         $"Max HP: {unit.maxhp}\n" +
                         $"Max ATK: {unit.maxatk}\n" +
                         $"Max DEF: {unit.maxdef}\n" +
-                        "---------------------------------------------------------------------------------------------\n" +
-                        "Max Awake\n" +
+                        "\nMax Awake\n" +
                         $"Name {unit.max_awake_name}\n" +
                         $"Skill {unit.max_awake_passive}\n" +
-                        "---------------------------------------------------------------------------------------------\n" +
-                        "Mystic Artes\n" +
+                        "\nMystic Artes\n" +
                         $"Name: {unit.ma_name}\n" +
                         $"Max LVL: {unit.ma_max_lvl}\n" +
                         $"Max ATK: {unit.ma_max_atk}\n" +
                         $"Max HITS: {unit.ma_max_hits}\n" +
                         $"Enemys: {unit.ma_enemy}\n" +
+                        $"OL Cost: {unit.ma_ol_cost}\n" +
                         $"Skill: {unit.ma_add_skill}\n" +
-                        "---------------------------------------------------------------------------------------------\n" +
-                        "Skill 1\n" +
+                        "\nSkill 1\n" +
                         $"Name: {unit.skill1_name}\n" +
                         $"Max LVL: {unit.skill1_max_lvl}\n" +
                         $"Max ATK: {unit.skill1_max_atk}\n" +
                         $"Max HITS: {unit.skill1_max_hits}\n" +
                         $"Enemys: {unit.skill1_enemy}\n" +
+                        $"Cooldown: {unit.skill1_cd}\n" +
                         $"Skill: {unit.skill1_add_skill}\n" +
-                        "---------------------------------------------------------------------------------------------\n" +
-                        "Skill 1\n" +
+                        "\nSkill 1\n" +
                         $"Name: {unit.skill2_name}\n" +
                         $"Max LVL: {unit.skill2_max_lvl}\n" +
                         $"Max ATK: {unit.skill2_max_atk}\n" +
                         $"Max HITS: {unit.skill2_max_hits}\n" +
                         $"Enemys: {unit.skill2_enemy}\n" +
+                        $"Cooldown: {unit.skill2_cd}\n" +
                         $"Skill: {unit.skill2_add_skill}\n" +
-                        "---------------------------------------------------------------------------------------------\n" +
-                        "Normal Attack\n" +
+                        "\nNormal Attack\n" +
                         $"Name: {unit.normal_name}\n" +
                         $"Max ATK: {unit.normal_atk}\n" +
                         $"Max HITS: {unit.normal_hits}\n" +

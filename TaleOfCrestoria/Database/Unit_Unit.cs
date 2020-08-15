@@ -63,6 +63,9 @@ namespace TaleOfCrestoria.Database
         [Column(Name = "ma_enemy")]
         public string ma_enemy { get; set; }
 
+        [Column(Name = "ma_ol_cost")]
+        public int ma_ol_cost { get; set; }
+
         [Column(Name = "ma_max_lvl")]
         public int ma_max_lvl { get; set; }
 
@@ -81,6 +84,9 @@ namespace TaleOfCrestoria.Database
         [Column(Name = "skill1_enemy")]
         public string skill1_enemy { get; set; }
 
+        [Column(Name = "skill1_cd")]
+        public int skill1_cd { get; set; }
+
         [Column(Name = "skill1_max_lvl")]
         public int skill1_max_lvl { get; set; }
 
@@ -98,6 +104,9 @@ namespace TaleOfCrestoria.Database
 
         [Column(Name = "skill2_enemy")]
         public string skill2_enemy { get; set; }
+
+        [Column(Name = "skill2_cd")]
+        public int skill2_cd { get; set; }
 
         [Column(Name = "skill2_max_lvl")]
         public int skill2_max_lvl { get; set; }

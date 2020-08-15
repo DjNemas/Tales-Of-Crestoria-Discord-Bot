@@ -12,31 +12,11 @@ namespace TaleOfCrestoria.Database.Read
     {
         DatabaseAccess db = new DatabaseAccess();
 
-        public List<Unit_Unit> GetID(string name)
-        {
-            int id = 0;
-            DataContext context = db.connect();
-            List<Unit_Unit> unit_unit = (context.ExecuteQuery<Unit_Unit>($"select * from unit_unit where name = \"{name}\"").ToList());
-            return unit_unit;
-        }
-        public List<Unit_Unit> GetUnit(int id)
+        public List<Unit_Unit> GetDataBySQLString(string sqlstring)
         {
             DataContext context = db.connect();
-            List<Unit_Unit> unit_unit = (context.ExecuteQuery<Unit_Unit>($"select * from unit_unit where id = \"{id}\"").ToList());
+            List<Unit_Unit> unit_unit = (context.ExecuteQuery<Unit_Unit>(sqlstring).ToList());
             return unit_unit;
         }
-
-
-        //public string GetUnit()
-        //{
-        //    string tmp = "";
-        //    DataContext context = db.connect();
-        //    List<Unit_Unit> unit_unit = (context.ExecuteQuery<Unit_Unit>("select * from unit_unit")).ToList();
-        //    foreach (var unit in unit_unit)
-        //    {
-        //        tmp += $"```ID {unit.id} Name: {unit.name}\n```";
-        //    }
-        //    return tmp;
-        //}
     }
 }
