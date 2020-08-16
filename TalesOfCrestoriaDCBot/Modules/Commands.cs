@@ -28,7 +28,8 @@ namespace TaleOfCrestoria.Modules
                 $"> For Example {init.Prefix}unit <parameter1> <parameter2>\n" +
                 "When a command has a <parameter>, you only write the parameter without the <> \n" +
                 $"> Example for {init.Prefix}unit <unit id> unit you write {init.Prefix}unit 1 unit\n\n" +
-                "I hope this QuickGuide helps u :blush: \n");
+                "I hope this QuickGuide helps u :blush: \n\n" +
+                "Feel free to contact me on Discord DjNemas#0185, when u find bugs or have some suggetions :heart: OwO ");
             
         }
 
@@ -46,7 +47,7 @@ namespace TaleOfCrestoria.Modules
                     "This commands only can be used by **Admins**\n" +
                     $"> {init.Prefix}shutdown | Shutdown the Bot\n" +
                     $"> {init.Prefix}prefix <new prefix> | Change the **prefix** for Commands and **restart the bot**. Only one character like % or & allowed!\n" +
-                    $"> {init.Prefix}update unit | Update the Database with the API www.tocdb.xyz/api.php | Right now only add new Units!" );
+                    $"> {init.Prefix}update unit | Update the Database with the API www.tocdb.xyz/api.php" );
         }
 
         //sample square 20 -> 400

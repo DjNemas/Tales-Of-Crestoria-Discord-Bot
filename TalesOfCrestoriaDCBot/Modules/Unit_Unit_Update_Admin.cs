@@ -43,7 +43,13 @@ namespace TaleOfCrestoria.Modules
                                          "(\"name\", \"secondname\", \"grade\", \"element\", \"weapontype\", \"maxlvl\", \"maxhp\", \"maxatk\", \"maxdef\", \"max_awake_name\", \"max_awake_passive\", \"ma_name\", \"ma_max_atk\", \"ma_max_hits\", \"ma_enemy\", \"ma_ol_cost\", \"ma_max_lvl\", \"ma_add_skill\", \"skill1_name\", \"skill1_max_atk\", \"skill1_max_hits\", \"skill1_enemy\", \"skill1_cd\", \"skill1_max_lvl\", \"skill1_add_skill\", \"skill2_name\", \"skill2_max_atk\", \"skill2_max_hits\", \"skill2_enemy\", \"skill2_cd\", \"skill2_max_lvl\", \"skill2_add_skill\", \"normal_name\", \"normal_atk\", \"normal_hits\", \"normal_enemy\", \"normal_add_skill\", \"image\")" +
                                          " VALUES " +
                                          $"('{data2.name}', '{data2.title}', '{data2.rarity}', '{data2.element}', '{data2.type}', '0', '{data2.hp}', '{data2.attack}', '{data2.defense}', '', '', '{data2.ma_name}', '{data2.ma_dmg}', '{data2.ma_hit}', '', '{data2.ma_ol}', '0', '{data2.ma_ef}', '{data2.a1_name}', '{data2.a1_dmg}', '{data2.a1_hit}', '', '{data2.a1_cd}', '0', '{data2.a1_ef}', '{data2.a2_name}', '{data2.a2_dmg}', '{data2.a2_hit}', '', '{data2.a2_cd}', '0', '{data2.a2_ef}', 'Normal Attack', '100', '0', '', '', '');";
-
+                        context.ExecuteQuery<Unit_Unit>(queryString);
+                    }
+                    if (title[0].secondname == data2.title.ToString())
+                    {
+                        string queryString = "UPDATE unit_unit " +
+                            $"SET name = \"{data2.name}\", secondname = \"{data2.title}\", grade = \"{data2.rarity}\", element = \"{data2.element}\", weapontype = \"{data2.type}\",maxlvl = \"0\", maxhp = \"{data2.hp}\", maxatk = \"{data2.attack}\", maxdef = \"{data2.defense}\", max_awake_name = \"\", max_awake_passive = \"\", ma_name = \"{data2.ma_name}\", ma_max_atk = \"{data2.ma_dmg}\", ma_max_hits = \"{data2.ma_hit}\", ma_enemy = \"\", ma_ol_cost = \"{data2.ma_ol}\", ma_max_lvl = \"0\", ma_add_skill = \"{data2.ma_ef}\", skill1_name = \"{data2.a1_name}\", skill1_max_atk = \"{data2.a1_dmg}\", skill1_max_hits = \"{data2.a1_hit}\", skill1_enemy = \"\", skill1_cd = \"{data2.a1_cd}\", skill1_max_lvl = \"0\", skill1_add_skill = \"{data2.a1_ef}\", skill2_name = \"{data2.a2_name}\", skill2_max_atk = \"{data2.a2_dmg}\", skill2_max_hits = \"{data2.a2_hit}\", skill2_enemy = \"\", skill2_cd = \"{data2.a2_cd}\", skill2_max_lvl = \"0\", skill2_add_skill = \"{data2.a2_ef}\", normal_name = \"Normal Attack\", normal_atk =\"100\", normal_hits = \"0\", normal_enemy = \"0\", normal_add_skill = \"\" " +
+                            $"WHERE id = {title[0].id}";
                         context.ExecuteQuery<Unit_Unit>(queryString);
                     }
                 }

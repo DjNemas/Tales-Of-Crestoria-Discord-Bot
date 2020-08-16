@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TaleOfCrestoria.Database;
 using Discord.Commands;
 using System.Data.Linq;
+using System.Net;
 
 namespace TaleOfCrestoria.Modules
 {
@@ -30,26 +31,29 @@ namespace TaleOfCrestoria.Modules
             name = tools.StringUppercaseFirst(name);
             string queryString = "";
             if (name == "All")
-            {
-                await ReplyAsync("Not implemented yet");
+            {                
+                await ReplyAsync("Not implemented yet");                
                 //queryString = $"select * from unit_unit";
             }
-            else 
+            else
             {
                 queryString = $"select * from unit_unit where name = \"{name}\"";
             }
-            List<Unit_Unit> id = (context.ExecuteQuery<Unit_Unit>(queryString).ToList());
-            string tmp = "";
-            foreach (var unit in id)
+            if (queryString != "")
             {
-                tmp += $"ID: {unit.id} | Unit: {unit.name} [{unit.secondname}] | Grade: {unit.grade}\n";                
+                List<Unit_Unit> id = (context.ExecuteQuery<Unit_Unit>(queryString).ToList());
+                string tmp = "";
+                foreach (var unit in id)
+                {
+                    tmp += $"ID: {unit.id} | Unit: {unit.name} [{unit.secondname}] | Grade: {unit.grade}\n";
+                }
+                await ReplyAsync(
+                    $"> **Use \"{prf.Prefix}unit <id> unit/stone\"** for selecting the right unit.\n" +
+                    $"> You can chose between **Unit Stats** ot **Stone Stats**\n" +
+                    $"```Available Units with the name {name}\n" +
+                    "-----------------------------------\n" +
+                    $"{tmp}```");
             }
-            await ReplyAsync(
-                $"> **Use \"{prf.Prefix}unit <id> unit/stone\"** for selecting the right unit.\n" +
-                $"> You can chose between **Unit Stats** ot **Stone Stats**\n" +
-                $"```Available Units with the name {name}\n" +
-                "-----------------------------------\n" +
-                $"{tmp}```");
         }
 
         [Command("unit")]
