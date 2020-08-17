@@ -27,6 +27,7 @@ namespace TaleOfCrestoria.Modules
         }
 
         //commands
+        // Get All or specific unit from database and Replay it to Chat Async
         [Command("unit")]
         public async Task UnitName(string name)
         {
@@ -34,12 +35,14 @@ namespace TaleOfCrestoria.Modules
             this.queryString = "";
             if (name == "All")
             {
+                // Query for all Units with GroupBy name than secondname
                 this.queryString = $"SELECT * FROM \"unit_unit\" ORDER BY \"name\", \"secondname\"";
                 this.id = this.allUnitsData.GetDataDB(this.queryString);
                 this.db.CloseConnection();
             }
             else
             {
+                // Query to get id for specific unitname
                 this.queryString = $"SELECT * FROM \"unit_unit\" WHERE name = \"{name}\"";
                 this.id = this.allUnitsData.GetDataDB(this.queryString);
                 this.db.CloseConnection();
@@ -56,6 +59,7 @@ namespace TaleOfCrestoria.Modules
                 foreach (var unit in this.id)
                 {
                     unitString = $"> ID: {unit.id} | Unit: **{unit.name}** [{unit.secondname}] | Grade: {unit.grade}\n";
+                    // this will check if message is under 2000 character, otherwise exeption will be throw
                     if (text.Count() + unitString.Count() < 2000)
                     {
                         text += unitString;
@@ -144,6 +148,7 @@ namespace TaleOfCrestoria.Modules
                 }
                 await ReplyAsync($"```\n{tmp}```");
             }
+            // This need to be moved later
             else if (type == "stone")
             {
                 await ReplyAsync("Not implementet yet Stone");

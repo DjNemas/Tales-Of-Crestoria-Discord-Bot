@@ -14,18 +14,17 @@ namespace TaleOfCrestoria
 {
     class InitBot
     {
-
         /// Member
         ///        
         private DiscordSocketClient client;
         private CommandService commands;
         private IServiceProvider services;
         // Config Path
-        private const string InitConfigPath = @"../../initconfig.xml";
+        private const string InitConfigPath = @"config/initconfig.xml";
         // Load ConfigFile
         public XDocument config = XDocument.Load(InitConfigPath);
         public char Prefix { get; private set; }
-        //Commands com = new Commands(); 
+        public string Token { get; private set; }
         
 
         // Constructor
@@ -35,6 +34,11 @@ namespace TaleOfCrestoria
             var prefix = from pre in config.Descendants("Config")
                          select pre.Element("Prefix").Value;
             this.Prefix = Convert.ToChar(prefix.ElementAt(0));
+
+            // Get Token from config file
+            var token = from tok in config.Descendants("Config")
+                         select tok.Element("Token").Value;
+            this.Token = Convert.ToString(token.ElementAt(0));
         }
 
         // getter
@@ -46,26 +50,20 @@ namespace TaleOfCrestoria
         public async Task RunBotAsync()
         {
             client = new DiscordSocketClient();
+            
             commands = new CommandService();
 
-            // Create a token.txt file and put your Bot Token in it and change the path!!!
-            System.IO.StreamReader file = new System.IO.StreamReader(@"G:\Tales of Crestoria Discord Bot\token.txt");
-
             services = new ServiceCollection().AddSingleton(client).AddSingleton(commands).BuildServiceProvider();
-
-            string token = file.ReadLine();
 
             client.Log += Client_Log;
 
             await RegisterCommandsAsync();
 
-            await client.LoginAsync(TokenType.Bot, token);
+            await client.LoginAsync(TokenType.Bot, this.Token);
 
             await client.StartAsync();
 
             await Task.Delay(-1);
-
-            file.Close();
 
         }
 
