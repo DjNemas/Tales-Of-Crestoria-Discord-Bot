@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TaleOfCrestoria.Database;
 using Discord.Commands;
-using System.Data.Linq;
-using System.Net;
+using System.Data.SQLite;
+using System.Security.Policy;
+using System;
+using Discord;
 
 namespace TaleOfCrestoria.Modules
 {
@@ -15,57 +15,87 @@ namespace TaleOfCrestoria.Modules
         //member
         private Tools tools = new Tools();
         private InitBot prf = new InitBot();
-        private static DatabaseAccess db = new DatabaseAccess();
-        private static DataContext context = db.connect();
+        private List<Unit_Unit> id = new List<Unit_Unit>();
+        private DatabaseAccess db = new DatabaseAccess();
+        private Unit_Unit allUnitsData = new Unit_Unit();
+        private string queryString;
 
         [Command("unit")]
         public async Task Unit()
         {
-            await ReplyAsync($"Write \"{prf.Prefix}unit <name>\" to get a list of available units with the name.");
+            await ReplyAsync($"Write \"{this.prf.Prefix}unit <name>\" to get a list of available units with the name.");
         }
 
         //commands
         [Command("unit")]
         public async Task UnitName(string name)
         {
-            name = tools.StringUppercaseFirst(name);
-            string queryString = "";
+            name = this.tools.StringUppercaseFirst(name);
+            this.queryString = "";
             if (name == "All")
-            {                
-                await ReplyAsync("Not implemented yet");                
-                //queryString = $"select * from unit_unit";
+            {
+                this.queryString = $"SELECT * FROM \"unit_unit\" ORDER BY \"name\", \"secondname\"";
+                this.id = this.allUnitsData.GetDataDB(this.queryString);
+                this.db.CloseConnection();
             }
             else
             {
-                queryString = $"select * from unit_unit where name = \"{name}\"";
+                this.queryString = $"SELECT * FROM \"unit_unit\" WHERE name = \"{name}\"";
+                this.id = this.allUnitsData.GetDataDB(this.queryString);
+                this.db.CloseConnection();
             }
-            if (queryString != "")
+            if (this.queryString != "")
             {
-                List<Unit_Unit> id = (context.ExecuteQuery<Unit_Unit>(queryString).ToList());
-                string tmp = "";
-                foreach (var unit in id)
+                string text = $"> **Use \"{this.prf.Prefix}unit <id> unit/stone\"** for selecting the right unit.\n" +
+                    $"> You can chose between **Unit Stats** ot **Stone Stats**\n\n" +
+                    $"> **__Available Units with the name {name}__**\n";
+                string unitString;
+                string unitStringSecond = "";
+                bool send = false;
+                int count = 0;
+                foreach (var unit in this.id)
                 {
-                    tmp += $"ID: {unit.id} | Unit: {unit.name} [{unit.secondname}] | Grade: {unit.grade}\n";
+                    unitString = $"> ID: {unit.id} | Unit: **{unit.name}** [{unit.secondname}] | Grade: {unit.grade}\n";
+                    if (text.Count() + unitString.Count() < 2000)
+                    {
+                        text += unitString;
+                    }
+                    else if (text.Count() + unitString.Count() >= 2000 && send == false)
+                    {
+                        await ReplyAsync(text);
+                        send = true;
+                        unitStringSecond = unitString;
+                    }
+                    else if (unitStringSecond.Count() + unitString.Count() < 2000 )
+                    {
+                        unitStringSecond += unitString;
+                        if (count == this.id.Count - 1)
+                        {
+                            await ReplyAsync(unitStringSecond);
+                        }
+                    }
+                    else if (unitStringSecond.Count() + unitString.Count() >= 2000)
+                    {
+                        await ReplyAsync(unitStringSecond);
+                        unitStringSecond = unitString;
+                    }
+                    count++;
                 }
-                await ReplyAsync(
-                    $"> **Use \"{prf.Prefix}unit <id> unit/stone\"** for selecting the right unit.\n" +
-                    $"> You can chose between **Unit Stats** ot **Stone Stats**\n" +
-                    $"```Available Units with the name {name}\n" +
-                    "-----------------------------------\n" +
-                    $"{tmp}```");
             }
         }
 
         [Command("unit")]
-        public async Task UnitIdType(int id, string type)
+        public async Task UnitIdType(int unitId, string type)
         {
-            type = tools.StringToLower(type);
+            type = this.tools.StringToLower(type);
             if (type == "unit")
             {
-                string queryString = $"select * from unit_unit where id = \"{id}\"";
-                List<Unit_Unit> unitdb = (context.ExecuteQuery<Unit_Unit>(queryString).ToList());
+                this.queryString = $"SELECT * FROM \"unit_unit\" WHERE id = \"{unitId}\"";
+                this.id = this.allUnitsData.GetDataDB(this.queryString);
+                this.db.CloseConnection();
+
                 string tmp = "";
-                foreach (var unit in unitdb)
+                foreach (var unit in id)
                 {
                     tmp +=
                         $"Unit {unit.name} [{unit.secondname} | Grade {unit.grade} | Element: {unit.element} | {unit.weapontype}]\n\n" +
@@ -107,6 +137,10 @@ namespace TaleOfCrestoria.Modules
                         $"Max HITS: {unit.normal_hits}\n" +
                         $"Enemys: {unit.normal_enemy}\n" +
                         $"Skill: {unit.skill2_add_skill}\n";
+                }
+                if (tmp.Count() > 2000)
+                {
+                    await ReplyAsync($"Replay Message to Long, pls contact the Developer for fix! DjNemas#0185");
                 }
                 await ReplyAsync($"```\n{tmp}```");
             }

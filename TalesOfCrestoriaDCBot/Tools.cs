@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,59 +38,17 @@ namespace TaleOfCrestoria
             return new string(a);
         }
 
-        public dynamic TrimmVariablesForUnitsQuery(dynamic data)
+        public int? IsNullRetun(object check)
         {
-            for (int i = 0; i < data.Count; i++)
+            
+            if (Convert.IsDBNull(check) == true)
             {
-                string tmp;
-                tmp = data[i].name;
-                data[i].name = tmp.Replace("'", "");
-                tmp = data[i].title;
-                data[i].title = tmp.Replace("'", "");
-                tmp = data[i].rarity;
-                data[i].rarity = tmp.Replace("'", "");
-                tmp = data[i].element;
-                data[i].element = tmp.Replace("'", "");
-                tmp = data[i].type;
-                data[i].type = tmp.Replace("'", "");
-                tmp = data[i].hp;
-                data[i].hp = tmp.Replace("'", "");
-                tmp = data[i].attack;
-                data[i].attack = tmp.Replace("'", "");
-                tmp = data[i].defense;
-                data[i].defense = tmp.Replace("'", "");
-                tmp = data[i].ma_name;
-                data[i].ma_name = tmp.Replace("'", "");
-                tmp = data[i].ma_dmg;
-                data[i].ma_dmg = tmp.Replace("'", "");
-                tmp = data[i].ma_hit;
-                data[i].ma_hit = tmp.Replace("'", "");
-                tmp = data[i].ma_ol;
-                data[i].ma_ol = tmp.Replace("'", "");
-                tmp = data[i].ma_ef;
-                data[i].ma_ef = tmp.Replace("'", "");
-                tmp = data[i].a1_name;
-                data[i].a1_name = tmp.Replace("'", "");
-                tmp = data[i].a1_dmg;
-                data[i].a1_dmg = tmp.Replace("'", "");
-                tmp = data[i].a1_hit;
-                data[i].a1_hit = tmp.Replace("'", "");
-                tmp = data[i].a1_cd;
-                data[i].a1_cd = tmp.Replace("'", "");
-                tmp = data[i].a1_ef;
-                data[i].a1_ef = tmp.Replace("'", "");
-                tmp = data[i].a2_name;
-                data[i].a2_name = tmp.Replace("'", "");
-                tmp = data[i].a2_dmg;
-                data[i].a2_dmg = tmp.Replace("'", "");
-                tmp = data[i].a2_hit;
-                data[i].a2_hit = tmp.Replace("'", "");
-                tmp = data[i].a2_cd;
-                data[i].a2_cd = tmp.Replace("'", "");
-                tmp = data[i].a2_ef;
-                data[i].a2_ef = tmp.Replace("'", "");
+                return null;
             }
-            return data;
+            else
+            {
+                return Convert.ToInt32(check);
+            }
         }
     }
 }

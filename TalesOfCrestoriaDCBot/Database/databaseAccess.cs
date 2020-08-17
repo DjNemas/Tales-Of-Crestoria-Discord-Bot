@@ -1,22 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Linq;
+﻿using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaleOfCrestoria.Database
-{    public class DatabaseAccess
+{
+    public class DatabaseAccess
     {
         //member 
-        private const string dbfile = @"G:\Tales of Crestoria Discord Bot\Code\TalesOfCrestoriaDCBot\TalesOfCrestoriaDCBot\Database\unitdb.db"; // Change String to your Database
+        private const string dbfile = @"G:\Tales of Crestoria Discord Bot\Code\TalesOfCrestoriaDCBot\TalesOfCrestoriaDCBot\Database\unitdb.db";
+        private SQLiteConnection connect = new SQLiteConnection("Data Source = " + dbfile);
 
-        public DataContext connect()
+        public SQLiteCommand OpenConnect(string queryString)
         {
-            SQLiteConnection connection = new SQLiteConnection(@"Data Source=" + dbfile);
-            DataContext context = new DataContext(connection);
-            return context;
-        }        
+            this.connect.Open();
+            SQLiteCommand fmd = connect.CreateCommand();
+            fmd.CommandText = queryString;
+            fmd.CommandType = CommandType.Text;
+            return fmd;
+        }
+
+        public void CloseConnection()
+        {
+            this.connect.Close();
+        }
+
+        //public int GetCountOfRow()
+        //{
+        //    this.connect.Open();
+        //    SQLiteCommand fmd = connect.CreateCommand();
+        //    fmd.CommandText = "SELECT COUNT(*) FROM \"unit_unit\"";
+        //    fmd.CommandType = CommandType.Text;
+        //}
     }
 }

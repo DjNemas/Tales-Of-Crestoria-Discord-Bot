@@ -110,7 +110,6 @@
     <Compile Include="Modules\Commands.cs" />
     <Compile Include="Modules\CommandsAdmin.cs" />
     <Compile Include="Modules\Commands_Unit_Unit.cs" />
-    <Compile Include="Modules\Unit_Unit_Update_Admin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools.cs" />
