@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("TaleOfCrestoria")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("TalesOfCrestoriaDCBot")]
+[assembly: AssemblyDescription("A Discord Bot with Fetures for the Mobile Game Tales of Crestoria")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TaleOfCrestoria")]
+[assembly: AssemblyCompany("DjNemas")]
+[assembly: AssemblyProduct("TalesOfCrestoriaDCBot")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
