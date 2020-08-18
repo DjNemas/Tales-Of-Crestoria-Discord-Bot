@@ -3,12 +3,11 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using TaleOfCrestoria.Modules;
 
 namespace TaleOfCrestoria
 {
@@ -88,6 +87,7 @@ namespace TaleOfCrestoria
             int argPos = 0;
             if (message.HasStringPrefix(this.Prefix.ToString(), ref argPos))
             {
+                
                 var result = await commands.ExecuteAsync(context, argPos, services);
                 if (!result.IsSuccess)
                 {

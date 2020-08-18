@@ -3,10 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using TaleOfCrestoria.Database;
 using Discord.Commands;
-using System.Data.SQLite;
-using System.Security.Policy;
-using System;
-using Discord;
 
 namespace TaleOfCrestoria.Modules
 {
@@ -43,7 +39,7 @@ namespace TaleOfCrestoria.Modules
             else
             {
                 // Query to get id for specific unitname
-                this.queryString = $"SELECT * FROM \"unit_unit\" WHERE name = \"{name}\"";
+                this.queryString = $"SELECT * FROM \"unit_unit\" WHERE \"name\" = \"{name}\"";
                 this.id = this.allUnitsData.GetDataDB(this.queryString);
                 this.db.CloseConnection();
             }
@@ -52,6 +48,12 @@ namespace TaleOfCrestoria.Modules
                 string text = $"> **Use \"{this.prf.Prefix}unit <id> unit/stone\"** for selecting the right unit.\n" +
                     $"> You can chose between **Unit Stats** ot **Stone Stats**\n\n" +
                     $"> **__Available Units with the name {name}__**\n";
+                if (this.id.Count == 0)
+                {
+                    text += $"> No unit with the name {name} was found.";
+                    await ReplyAsync(text);
+                }
+
                 string unitString;
                 string unitStringSecond = "";
                 bool send = false;
@@ -62,7 +64,11 @@ namespace TaleOfCrestoria.Modules
                     // this will check if message is under 2000 character, otherwise exeption will be throw
                     if (text.Count() + unitString.Count() < 2000)
                     {
-                        text += unitString;
+                        text += unitString;                      
+                        if (count == this.id.Count - 1)
+                        {
+                            await ReplyAsync(text);
+                        }
                     }
                     else if (text.Count() + unitString.Count() >= 2000 && send == false)
                     {

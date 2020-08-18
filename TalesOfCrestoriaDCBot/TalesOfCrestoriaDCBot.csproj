@@ -107,6 +107,7 @@
     <Compile Include="Database\Unit_Unit.cs" />
     <Compile Include="Database\DatabaseAccess.cs" />
     <Compile Include="InitBot.cs" />
+    <Compile Include="Modules\Commands_Add_And_Update.cs" />
     <Compile Include="Modules\Commands.cs" />
     <Compile Include="Modules\CommandsAdmin.cs" />
     <Compile Include="Modules\Commands_Unit_Unit.cs" />
